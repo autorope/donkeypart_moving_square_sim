@@ -1,1 +1,1 @@
-from .part import MovingSquareTelemetry, SquareBoxCamera
+from .part import MovingSquareTelemetry, SquareBoxCamera, ControllerSquareBoxCamera

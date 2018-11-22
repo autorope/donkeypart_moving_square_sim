@@ -60,13 +60,34 @@ class SquareBoxCamera:
         self.box_size = box_size
         self.color = color
 
-    def run(self, x, y, box_size=None, color=None):
+    def _run(self, x, y, box_size=None, color=None):
         """
         Create an image of a square box at a given coordinates.
         """
         radius = int((box_size or self.box_size)/2)
         color = color or self.color
         frame = np.zeros(shape=self.resolution + (3,))
+        print('radius: {}'.format(radius))
+        print('x {}'.format(x))
+        print('y {}'.format(y))
         frame[y - radius: y + radius,
               x - radius: x + radius, :] = color
         return frame
+
+    def run(self, x, y, box_size=None, color=None):
+        return self._run(x,y, box_size, color)
+
+
+class ControllerSquareBoxCamera(SquareBoxCamera):
+    def run(self, x, y, box_size=None, color=None):
+
+        print('controller sbc called')
+
+
+        half_height = int(self.resolution[0]/2)
+        half_width = int(self.resolution[1]/2)
+
+        x = int(half_width + half_width * x)
+        y = int(half_height + half_height * y)
+
+        return self._run(x,y, box_size, color)
